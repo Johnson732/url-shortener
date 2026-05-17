@@ -13,7 +13,7 @@ import java.net.URI;
 public class ShortlyController {
     //private final ShortlyService shortlyService;
     private final ShortlyInMemoryService shortlyInMemoryService;
-    public ShortlyController(ShortlyService shortlyService, ShortlyInMemoryService shortlyInMemoryService){
+    public ShortlyController(ShortlyInMemoryService shortlyInMemoryService){
         //this.shortlyService = shortlyService;
         this.shortlyInMemoryService = shortlyInMemoryService;
     }

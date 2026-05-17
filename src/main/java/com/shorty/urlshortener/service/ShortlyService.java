@@ -4,7 +4,7 @@ import com.shorty.urlshortener.entities.UrlMapping;
 import com.shorty.urlshortener.repository.UrlMappingRepository;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class ShortlyService {
 
     private static final String BASE62 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
