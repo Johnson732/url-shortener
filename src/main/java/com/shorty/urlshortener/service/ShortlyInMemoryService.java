@@ -8,7 +8,7 @@ import java.util.Map;
 public class ShortlyInMemoryService {
 
     private static final String BASE62 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private static final String BASE_URL = "http://localhost:8080/";
+    private static final String BASE_URL = "https://shortly-api-yceb.onrender.com/";
     private final Map<String, String> urlStore = new HashMap<>();
     private long counter = 1;
     public String createShortUrl(String longUrl){
