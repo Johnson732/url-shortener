@@ -1,13 +1,15 @@
 spring:
   application:
     name: url-shortener
-    cors:
-      origin: http://localhost:5173
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
       - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
       - org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+
+  cors:
+    origin: http://localhost:5173
 
 #  datasource:
 #    url: jdbc:postgresql://localhost:5432/shortly
