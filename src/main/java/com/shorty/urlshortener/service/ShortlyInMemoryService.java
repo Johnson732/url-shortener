@@ -1,44 +1,34 @@
 package com.shorty.urlshortener.service;
 
-import com.shorty.urlshortener.entities.UrlMapping;
-import com.shorty.urlshortener.repository.UrlMappingRepository;
 import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
-public class ShortlyService {
+public class ShortlyInMemoryService {
 
     private static final String BASE62 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final String BASE_URL = "http://localhost:8080/";
-    private final UrlMappingRepository repository;
-
-    public ShortlyService(UrlMappingRepository repository){
-        this.repository = repository;
-    }
-
+    private final Map<String, String> urlStore = new HashMap<>();
+    private long counter = 1;
     public String createShortUrl(String longUrl){
 
-        UrlMapping mapping = new UrlMapping();
-        mapping.setLongUrl(longUrl);
+        long id = counter++;
 
-        mapping = repository.save(mapping);
+        String shortCode = encodeBase62(id);
 
-        String shortCode = encodeBase62(mapping.getId());
-
-        mapping.setShortUrl(shortCode);
-
-        repository.save(mapping);
+        urlStore.put(shortCode, longUrl);
 
         return BASE_URL + shortCode;
     }
 
     public String getOriginalUrl(String shortCode){
-        UrlMapping mapping = repository.findByShortCode(shortCode);
-
-        if(mapping == null){
+        String originalUrl = urlStore.get(shortCode);
+        if(originalUrl == null){
             throw new RuntimeException("Short URL not found");
         }
 
-        return mapping.getLongUrl();
+        return originalUrl;
     }
 
     private String encodeBase62(long id){

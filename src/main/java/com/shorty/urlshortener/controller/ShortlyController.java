@@ -1,6 +1,7 @@
 package com.shorty.urlshortener.controller;
 
 import com.shorty.urlshortener.models.LongUrl;
+import com.shorty.urlshortener.service.ShortlyInMemoryService;
 import com.shorty.urlshortener.service.ShortlyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,13 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("shortly")
-@CrossOrigin(origins = "http://localhost:5173")
+//@RequestMapping("shortly")
+//@CrossOrigin(origins = "http://localhost:5173")
 public class ShortlyController {
     private final ShortlyService shortlyService;
-
-    public ShortlyController(ShortlyService shortlyService){
+    private final ShortlyInMemoryService shortlyInMemoryService;
+    public ShortlyController(ShortlyService shortlyService, ShortlyInMemoryService shortlyInMemoryService){
         this.shortlyService = shortlyService;
+        this.shortlyInMemoryService = shortlyInMemoryService;
     }
 
     @PostMapping("/shorten")
@@ -25,6 +27,22 @@ public class ShortlyController {
     @GetMapping("/{shortCode}")
     public ResponseEntity<Void> redirect(@PathVariable String shortCode){
         String originalUrl = shortlyService.getOriginalUrl(shortCode);
+
+        return ResponseEntity
+                .status(302)
+                .location(URI.create(originalUrl))
+                .build();
+    }
+
+    // below two endpoints for mvp in-memory purpose
+    @PostMapping("/shorten1")
+    public String shortenUrl1(@RequestBody LongUrl request){
+        return shortlyInMemoryService.createShortUrl(request.longUrl);
+    }
+
+    @GetMapping("/{shortCode1}")
+    public ResponseEntity<Void> redirect1(@PathVariable String shortCode1){
+        String originalUrl = shortlyInMemoryService.getOriginalUrl(shortCode1);
 
         return ResponseEntity
                 .status(302)

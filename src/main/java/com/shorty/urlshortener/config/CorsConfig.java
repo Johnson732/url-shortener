@@ -18,6 +18,8 @@ public class CorsConfig implements WebMvcConfigurer {
 ///*
 package com.shorty.urlshortener.config;
 
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -29,6 +31,9 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
+    @Value("${application.cors.origin}")
+    private String corsOrigin;
+
     @Bean
     public CorsFilter corsFilter() {
 
@@ -36,7 +41,7 @@ public class CorsConfig {
 
         config.setAllowCredentials(true);
 
-        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedOriginPatterns(List.of(corsOrigin));
 
         config.setAllowedHeaders(List.of("*"));
 
