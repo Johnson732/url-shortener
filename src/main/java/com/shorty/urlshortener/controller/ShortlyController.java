@@ -9,6 +9,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("shortly")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ShortlyController {
     private final ShortlyService shortlyService;
 
