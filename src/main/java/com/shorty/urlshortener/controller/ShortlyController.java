@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-//@RequestMapping("shortly")
 //@CrossOrigin(origins = "http://localhost:5173")
 public class ShortlyController {
-    private final ShortlyService shortlyService;
+    //private final ShortlyService shortlyService;
     private final ShortlyInMemoryService shortlyInMemoryService;
     public ShortlyController(ShortlyService shortlyService, ShortlyInMemoryService shortlyInMemoryService){
-        this.shortlyService = shortlyService;
+        //this.shortlyService = shortlyService;
         this.shortlyInMemoryService = shortlyInMemoryService;
     }
 
+    /*
     @PostMapping("/shorten")
     public String shortenUrl(@RequestBody LongUrl request){
         return shortlyService.createShortUrl(request.longUrl);
@@ -33,7 +33,7 @@ public class ShortlyController {
                 .location(URI.create(originalUrl))
                 .build();
     }
-
+*/
     // below two endpoints for mvp in-memory purpose
     @PostMapping("/shorten1")
     public String shortenUrl1(@RequestBody LongUrl request){
